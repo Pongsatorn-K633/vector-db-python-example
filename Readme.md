@@ -87,43 +87,49 @@ Query: "fox dog"
 
 ### 3. Chroma Image Search (`03_chroma_image.ipynb`)
 
-**Description**: Multi-modal image retrieval using CLIP embeddings with Chroma.
+**Description**: Multi-modal image retrieval using OpenCLIP embeddings with Chroma's built-in data loaders.
 
 **Key Features**:
-- Uses `clip-ViT-B-32` model for vision embeddings
-- Supports both image-to-image and text-to-image search
-- Persistent local storage with `chroma_multimodal_local`
-- L2-normalized embeddings with cosine distance
-- Metadata tracking (filename, labels)
+- Uses `OpenCLIPEmbeddingFunction` for automatic vision embeddings
+- Automatic image loading with `ImageLoader` data loader
+- Persistent local storage with `PersistentClient`
+- Cosine distance metric (HNSW space)
+- Rich metadata tracking (filename, label, description)
+- Text-to-image search with automatic embedding
 
 **Workflow**:
-1. Load CLIP model (`SentenceTransformer`)
-2. Load pet images (dogs and cats) from local paths
-3. Generate image embeddings
-4. Initialize Chroma with persistent storage
-5. Add images with metadata (label, filename)
-6. Query images by text or image embedding
+1. Import ChromaDB embedding functions and data loaders
+2. Configure paths and image file lists (dogs and cats)
+3. Prepare image URIs and metadata (label, filename, description)
+4. Initialize `PersistentClient` for persistent storage
+5. Create collection with `OpenCLIPEmbeddingFunction` and `ImageLoader`
+6. Add images using URIs (automatic embedding and loading)
+7. Query images by text (automatic text embedding)
 
-**Helper Functions**:
-- `l2_normalize()` - L2 normalization for embeddings
-- `load_images()` - Load PIL images from paths
-- `encode_images()` - Generate CLIP embeddings
-- `add_images_to_db()` - Index images with metadata
+**Key Parameters**:
+- `OpenCLIPEmbeddingFunction()` - Handles image embedding automatically
+- `ImageLoader()` - Loads images from file paths automatically
+- `data_loader=ImageLoader()` - Tells ChromaDB to load images from URIs
+- `query_texts=[...]` - Send text queries directly, no manual embedding needed
 
 **Query Example**:
 ```
-=== Query: dog ===
+=== Query: 'dog' ===
 #1 -> dog1.png (dog) distance=0.0234
+  desc: A photo of a dog
 #2 -> dog3.png (dog) distance=0.0456
+  desc: A photo of a dog
 #3 -> dog2.png (dog) distance=0.0789
+  desc: A photo of a dog
 #4 -> cat1.png (cat) distance=0.3421
+  desc: A photo of a cat
 ```
 
 **Use Cases**:
 - Product image search
-- Content-based image retrieval
+- Content-based image retrieval with text queries
 - Multi-modal recommendation systems
-- Image-to-image similarity
+- Automatic image indexing without manual preprocessing
 
 ---
 
