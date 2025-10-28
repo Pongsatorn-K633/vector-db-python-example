@@ -159,7 +159,7 @@ pip install chromadb
 
 **For 03_chroma_image.ipynb**:
 ```bash
-pip install chromadb sentence-transformers pillow numpy
+pip install chromadb open-clip-torch
 ```
 
 ---
