@@ -1,6 +1,7 @@
 # Vector Database Python - Multi-Modal Search Lab
 
 This project demonstrates various vector database implementations for semantic search, featuring both text and image retrieval using modern embedding models.
+https://mikelopster.dev/posts/vector-db-chromadb 
 
 ## 📚 Overview
 
